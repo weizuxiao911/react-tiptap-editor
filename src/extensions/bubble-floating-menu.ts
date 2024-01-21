@@ -16,7 +16,7 @@ const bubble = (b: any, from: number, to: number) => {
     })
     if (!content || !content?.element) return
     b.options?.tippy1?.setContent(content?.element)
-    b.options?.tippy2?.setProps({
+    b.options?.tippy1?.setProps({
         getReferenceClientRect: () => {
             return posToDOMRect(b.editor.view, from, to)
         }
@@ -166,7 +166,7 @@ export const BubbleFloatingMenu = Extension.create<BubbleFloatingMenuProps>({
     },
 
     onTransaction() {
-        // if (!this.editor?.isFocused || !this.editor?.isEditable || !this.options?.bubble) return
+        if (!this.editor?.isFocused || !this.editor?.isEditable || !this.options?.bubble) return
         const selection = this.editor?.view?.state?.selection
         const { empty, from, to } = selection
         if (empty || from === to) {
