@@ -31,7 +31,9 @@ const App = () => {
         trigger={null}
         collapsible
         collapsed={collapsed}>
-        <Tom editor={editor}/>
+        <div className='tom'>
+          <Tom editor={editor} />
+        </div>
       </Sider>
       <Layout>
         <Header className='header'

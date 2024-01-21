@@ -18,11 +18,10 @@ export const Selection = Extension.create({
                 const { tr } = state
                 const startNodePos = tr.selection.$from.start()
                 const endNodePos = tr.selection.$to.end()
-                const success = commands.setTextSelection({
+                return commands.setTextSelection({
                     from: startNodePos,
                     to: endNodePos,
                 })
-                return success
             },
         }
     },
@@ -44,8 +43,9 @@ export const Selection = Extension.create({
                     success = true
                 }
                 setTimeout(() => {
+                    console.log('hide...')
                     editor.chain().hideBubbleMenu().run() // 键盘事件互斥
-                }, 100)
+                }, success ? 100 : 150)
                 return success
             },
         }
