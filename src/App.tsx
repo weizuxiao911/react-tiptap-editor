@@ -1,26 +1,54 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './App.scss'
+import {  useState } from 'react'
+import { Button, Layout, theme } from 'antd'
+import { ChevronsRight, ChevronsLeft, } from 'lucide-react'
+import { EditorContent } from '@tiptap/react'
+import Editor from './components/editor'
+import Headers from './components/header'
 
-function App() {
+const { Sider, Header, Content } = Layout
+
+const App = () => {
+
+  const {
+    token: { colorBgContainer },
+  } = theme.useToken()
+
+  const editor = Editor()
+
+  const [collapsed, setCollapsed] = useState<boolean>(true)
+
+  const toggleCollapsed = () => {
+    setCollapsed(!collapsed)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Layout hasSider>
+      <Sider className='sider'
+        style={{ background: colorBgContainer }}
+        collapsedWidth={0}
+        trigger={null}
+        collapsible
+        collapsed={collapsed}>
+      </Sider>
+      <Layout>
+        <Header className='header'
+          style={{ background: colorBgContainer }}>
+          <Button
+            type="text"
+            icon={collapsed ? <ChevronsRight size={16} /> : <ChevronsLeft size={16} />}
+            onClick={() => toggleCollapsed()}
+          />
+          {/* <Headers editor={editor} /> */}
+        </Header>
+        <Content className='content'>
+          <EditorContent className='editor'
+            style={{ background: colorBgContainer }}
+            editor={editor} />
+        </Content>
+      </Layout>
+    </Layout>
+  )
 }
 
-export default App;
+export default App
