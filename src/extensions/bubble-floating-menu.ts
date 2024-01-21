@@ -133,7 +133,7 @@ export const BubbleFloatingMenu = Extension.create<BubbleFloatingMenuProps>({
                     this.editor?.chain().showFloatingMenu()
                 },
                 paused: false,
-                ignoreEmpty: false,
+                ignoreEmpty: true,
                 ignoreSelection: true,
                 ignoreDocument: true,
                 ignoreHistory: true,

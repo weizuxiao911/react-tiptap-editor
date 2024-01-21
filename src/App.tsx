@@ -5,6 +5,7 @@ import { ChevronsRight, ChevronsLeft, } from 'lucide-react'
 import { EditorContent } from '@tiptap/react'
 import Editor from './components/editor'
 import Headers from './components/header'
+import { Tom } from './components/tom'
 
 const { Sider, Header, Content } = Layout
 
@@ -16,7 +17,7 @@ const App = () => {
 
   const editor = Editor()
 
-  const [collapsed, setCollapsed] = useState<boolean>(true)
+  const [collapsed, setCollapsed] = useState<boolean>(false)
 
   const toggleCollapsed = () => {
     setCollapsed(!collapsed)
@@ -30,6 +31,7 @@ const App = () => {
         trigger={null}
         collapsible
         collapsed={collapsed}>
+        <Tom editor={editor}/>
       </Sider>
       <Layout>
         <Header className='header'

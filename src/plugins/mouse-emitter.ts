@@ -94,15 +94,15 @@ export class MouseEmitter extends EventEmitter<MouseEvents> {
                 this.reset()
                 return
             }
-            while (!current?.pmViewDesc && current?.parentNode) { // find pmViewDesc
-                current = current?.parentNode
+            while (!current?.pmViewDesc && current?.parentElement) { // find pmViewDesc
+                current = current?.parentElement
                 if (current?.pmViewDesc) break
             }
-            if (!node || !node?.pmViewDesc) {
+            if (!current || !current?.pmViewDesc) {
                 this.reset()
                 return 
             }
-            let pmViewDesc = node?.pmViewDesc
+            let pmViewDesc = current?.pmViewDesc
             if (this.ignoreDocument && !pmViewDesc?.parent) {
                 this.reset()
                 return 

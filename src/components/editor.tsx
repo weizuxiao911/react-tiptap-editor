@@ -10,7 +10,8 @@ import { Blockquote } from '@tiptap/extension-blockquote'
 import { BulletList } from '@tiptap/extension-bullet-list'
 import { OrderedList } from '@tiptap/extension-ordered-list'
 import { ListItem } from '@tiptap/extension-list-item'
-import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
+// import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
+import { CodeBlcok } from '../extensions/code-block'
 import { lowlight } from 'lowlight'
 import { Image } from '@tiptap/extension-image'
 import { HardBreak } from '@tiptap/extension-hard-break'
@@ -67,7 +68,7 @@ const Editor = () => {
             Underline,
             Subscript,
             Superscript,
-            CodeBlockLowlight.configure({
+            CodeBlcok.configure({
                 lowlight
             }),
             Link.configure({
