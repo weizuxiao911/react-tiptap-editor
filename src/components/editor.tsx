@@ -1,10 +1,12 @@
 import { useEditor } from '@tiptap/react'
+
+// import StarterKit from '@tiptap/starter-kit'
+// import { CodeBlock } from '@tiptap/extension-code-block'
 import { Document } from '../extensions/document'
 import { Heading } from '@tiptap/extension-heading'
 import { Paragraph } from '../extensions/paragraph'
 import { Text } from '../extensions/text'
 import { Blockquote } from '@tiptap/extension-blockquote'
-// import { CodeBlock } from '@tiptap/extension-code-block'
 import { BulletList } from '@tiptap/extension-bullet-list'
 import { OrderedList } from '@tiptap/extension-ordered-list'
 import { ListItem } from '@tiptap/extension-list-item'
@@ -31,10 +33,11 @@ import Gapcursor from '@tiptap/extension-gapcursor'
 import { HorizontalRule } from '@tiptap/extension-horizontal-rule'
 import { Selection } from '../extensions/selection'
 import { BubbleFloatingMenu } from '../extensions/bubble-floating-menu'
+import { Tooltip } from '../extensions/tooltip'
 
-// import StarterKit from '@tiptap/starter-kit'
 import BubblMenu from './bubble-menu'
 import FloatingMenu from './floating-menu'
+import Tips from './tips'
 
 
 const Editor = () => {
@@ -82,6 +85,9 @@ const Editor = () => {
                 bubble: BubblMenu,
                 floating: FloatingMenu
             }),
+            Tooltip.configure({
+                component: Tips
+            })
 
         ],
 

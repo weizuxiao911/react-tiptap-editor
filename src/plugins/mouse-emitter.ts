@@ -40,11 +40,11 @@ export class MouseEmitter extends EventEmitter<MouseEvents> {
     constructor({ editor, options }: { editor: Editor; options: { [key: string]: any } }) {
         super()
         this.editor = editor
-        options?.paused && (this.paused = options?.paused)
-        options?.ignoreEmpty && (this.ignoreEmpty = options?.ignoreEmpty)
-        options?.ignoreSelection && (this.ignoreSelection = options?.ignoreSelection)
-        options?.ignoreDocument && (this.ignoreDocument = options?.ignoreDocument)
-        options?.ignoreHistory && (this.ignoreHistory = options?.ignoreHistory)
+        undefined !== options?.paused && (this.paused = options?.paused)
+        undefined !== options?.ignoreEmpty && (this.ignoreEmpty = options?.ignoreEmpty)
+        undefined !== options?.ignoreSelection && (this.ignoreSelection = options?.ignoreSelection)
+        undefined !== options?.ignoreDocument && (this.ignoreDocument = options?.ignoreDocument)
+        undefined !== options?.ignoreHistory && (this.ignoreHistory = options?.ignoreHistory)
         this.callback = options.callback
         this.on('hover', this.callback)
     }

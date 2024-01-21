@@ -54,6 +54,46 @@
     &:focus {
       outline: none;
     }
+
+    code {
+      // background-color: rgba(#3e3c3a, 0.3);
+      background: #0d0d0d;
+      color: #fff;
+      border-radius: 2px;
+      margin: 0px 2px;
+      padding-top: 0px 2px;
+    }
+
+    div {
+      font-size: 16px;
+      margin-bottom: 0.5rem;
+    }
+
+    pre {
+      background: #0d0d0d;
+      color: #fff;
+      font-family: "JetBrainsMono", monospace;
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+
+      code {
+        color: inherit;
+        padding: 0;
+        background: none;
+        font-size: 0.8rem;
+      }
+    }
+
+    >div:has(br:only-child) {
+      position: relative;
+    }
+
+    >div:has(br:only-child):only-child::before {
+      color: #a9a9a9;
+      content: '请输入...';
+      position: absolute;
+      left: 0;
+    }
   }
 
 }

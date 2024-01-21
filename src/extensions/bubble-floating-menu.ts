@@ -125,6 +125,7 @@ export const BubbleFloatingMenu = Extension.create<BubbleFloatingMenuProps>({
                             return
                         }
                     }
+                    // find NodeViewDesc, not TextViewDesc / MaskViewDesc
                     while (pmViewDesc && (!pmViewDesc?.node || 'text' === pmViewDesc?.node?.type?.name)) {
                         pmViewDesc = pmViewDesc?.parent
                     }
