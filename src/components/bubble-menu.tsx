@@ -2,12 +2,7 @@ import { Editor } from "@tiptap/react"
 import { Button, Divider, Dropdown, MenuProps, Space } from "antd"
 import { AlignCenter, AlignLeft, AlignRight, Bold, Braces, ChevronDown, Code2, Eraser, Heading1, Heading2, Heading3, Italic, Link, List, ListOrdered, Quote, Redo, Strikethrough, Subscript, Superscript, Type, Underline, Undo } from "lucide-react"
 
-export type HeadersProps = {
-
-    [key: string]: any
-}
-
-const Bubble = (props: HeadersProps) => {
+const BubblMenu = (props: any) => {
 
     const items: MenuProps['items'] = [
         {
@@ -211,4 +206,4 @@ const Bubble = (props: HeadersProps) => {
     )
 }
 
-export default Bubble
+export default BubblMenu

@@ -3,12 +3,7 @@ import { Button, Divider, Dropdown, MenuProps, Space } from "antd"
 import { AlignCenter, AlignLeft, AlignRight, Bold, Braces, ChevronDown, Code2, Eraser, Heading1, Heading2, Heading3, Italic, Link, List, ListOrdered, Quote, Redo, Strikethrough, Subscript, Superscript, Type, Underline, Undo } from "lucide-react"
 import { useEffect } from "react"
 
-export type HeadersProps = {
-
-    [key: string]: any
-}
-
-const Popover = (props: HeadersProps) => {
+const FloatingMenu = (props: any) => {
 
     const items: MenuProps['items'] = [
         {
@@ -115,4 +110,4 @@ const Popover = (props: HeadersProps) => {
     )
 }
 
-export default Popover
+export default FloatingMenu

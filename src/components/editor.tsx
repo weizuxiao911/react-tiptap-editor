@@ -30,13 +30,11 @@ import History from '@tiptap/extension-history'
 import Gapcursor from '@tiptap/extension-gapcursor'
 import { HorizontalRule } from '@tiptap/extension-horizontal-rule'
 import { Selection } from '../extensions/selection'
-import { BubbleMenu } from '../extensions/bubble-menu'
+import { BubbleFloatingMenu } from '../extensions/bubble-floating-menu'
 
 // import StarterKit from '@tiptap/starter-kit'
-
-import Headers from './header'
-import Bubble from './bubble'
-import Popover from './popover'
+import BubblMenu from './bubble-menu'
+import FloatingMenu from './floating-menu'
 
 
 const Editor = () => {
@@ -56,15 +54,9 @@ const Editor = () => {
             OrderedList,
             ListItem,
             Image,
-            CodeBlockLowlight.configure({
-                lowlight
-            }),
             HardBreak,
             HorizontalRule,
             TextStyle,
-            TextAlign.configure({
-                types: ['heading', 'paragraph', 'image'],
-            }),
             Code,
             Bold,
             Italic,
@@ -72,17 +64,23 @@ const Editor = () => {
             Underline,
             Subscript,
             Superscript,
+            CodeBlockLowlight.configure({
+                lowlight
+            }),
             Link.configure({
                 openOnClick: false,
             }),
             Color.configure({
                 types: ['textStyle'],
             }),
+            TextAlign.configure({
+                types: ['heading', 'paragraph', 'image'],
+            }),
             Highlight,
             Selection,
-            BubbleMenu.configure({
-                menu: Bubble,
-                pops: Popover
+            BubbleFloatingMenu.configure({
+                bubble: BubblMenu,
+                floating: FloatingMenu
             }),
 
         ],
