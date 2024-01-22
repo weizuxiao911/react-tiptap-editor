@@ -32,7 +32,6 @@ const floating = (f: any, pmViewDesc: any) => {
             pmViewDesc
         }
     })
-    console.log(pmViewDesc)
     f.options?.tippy2?.setContent(content?.element)
     f.options?.tippy2?.setProps({
         getReferenceClientRect: () => {
