@@ -1,6 +1,5 @@
 import './style.scss'
-import { Editor } from "@tiptap/react";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 
 export const Tom = (props: any) => {

@@ -1,6 +1,6 @@
-import { Editor } from "@tiptap/react"
-import { Button, Divider, Dropdown, MenuProps, Space } from "antd"
-import { AlignCenter, AlignLeft, AlignRight, Bold, Braces, ChevronDown, Code2, Eraser, Heading1, Heading2, Heading3, Italic, Link, List, ListOrdered, Quote, Redo, Strikethrough, Subscript, Superscript, Type, Underline, Undo } from "lucide-react"
+import './style.scss'
+import { Button, Divider, Flex, MenuProps, Space } from "antd"
+import { AlignCenter, AlignLeft, AlignRight, Bold, Braces, Code2, Heading1, Heading2, Heading3, Italic, Link, List, ListOrdered, Quote, Strikethrough, Subscript, Superscript, Type, Underline } from "lucide-react"
 
 const BubblMenu = (props: any) => {
 
@@ -90,7 +90,7 @@ const BubblMenu = (props: any) => {
     }
 
     return (
-        <Space >
+        <Space className="bubble-menu">
             {/* <Dropdown menu={menuProps}>
                 <Button>
                     <Space>
@@ -192,8 +192,6 @@ const BubblMenu = (props: any) => {
                 value={editor?.getAttributes('textStyle').color}
                 data-testid="setColor"
             />
-
-            <Divider type="vertical" />
             <Button size='small'
                 type={editor?.isActive('link') ? 'link' : 'text'}
                 icon={<Link size={16} />}
