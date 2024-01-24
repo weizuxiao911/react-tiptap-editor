@@ -1,15 +1,36 @@
 import './style.scss'
-import { useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { NodeViewContent, NodeViewWrapper } from "@tiptap/react"
-import { Button, Input, Modal, Select, Space, message } from 'antd'
+import { Button, Input, Select, Space, message } from 'antd'
+import Editor from '@monaco-editor/react'
 import Terminal from '../components/terminal'
 import { BugPlay, Copy, Settings } from 'lucide-react'
+import { url } from 'inspector'
 
 export const CodeBlockView = ({ editor, node, getPos, updateAttributes, extension }: any) => {
 
-    const terminal = useRef<any>()
+    // const terminal = useRef<any>()
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const delay = 500
+    const debounceWebsocket = useRef<any>()
+    const websocket = useRef<WebSocket>()
+
+    const onmessage = () => {
+
+    }
+
+    useEffect(() => {
+        const url = node?.attrs?.url
+        if (debounceWebsocket?.current) clearTimeout(debounceWebsocket?.current)
+        debounceWebsocket.current = setTimeout(() => {
+            if (websocket?.current) websocket?.current?.close()
+            if (!url) return
+            websocket.current = new WebSocket(url)
+            // websocket.current.onopen = onopen
+            websocket.current.onmessage = onmessage
+            // websocket.current.onclose = onclose
+        }, delay)
+    }, [node?.attrs?.url])
 
     const handle = (value: any) => {
         const from = getPos() + 1
@@ -49,28 +70,21 @@ export const CodeBlockView = ({ editor, node, getPos, updateAttributes, extensio
     }
 
     const handlePlay = () => {
-        if (!node?.textContent) return
-        terminal?.current?.write(node?.textContent)
+        if (!node?.textContent) return 
+        // terminal?.current?.write(node?.textContent)
+        websocket?.current?.send(`${node?.textContent}\r`)
     }
-
-    const showModal = () => {
-        setIsModalOpen(true)
-    }
-
-    const hideModal = () => {
-        setIsModalOpen(false)
-    }
-
+    
     return <NodeViewWrapper className="code-block">
         <Space className='code-block-header'>
             <Space>
                 <Input placeholder='请输入标题...'
                     defaultValue={node?.attrs?.title ?? ''}
-                    style={{ width: 150 }}
+                    style={{ width: 100 }}
                     onChange={(e: any) => updateTitle(e?.target?.value)} />
                 <Select
                     defaultValue={node?.attrs?.language ?? ''}
-                    style={{ width: 120 }}
+                    style={{ width: 100 }}
                     onChange={updateLang}
                     options={[
                         { value: '', label: 'atuo' },
@@ -91,30 +105,18 @@ export const CodeBlockView = ({ editor, node, getPos, updateAttributes, extensio
                         onClick={handlePlay}
                     />
                 }
-                <Button type='text' size='small' icon={<Settings size={14} />}
-                    onClick={showModal}
-                />
-
+                
             </Space>
         </Space>
 
         <pre className='code-block-body'>
             <NodeViewContent as="code" />
         </pre>
-        {/* todo 解决url怎么来的问题 */}
-        {node?.attrs?.url &&
+        {/* // todo 解决url怎么来的问题 */}
+        {/* {node?.attrs?.url &&
             <div className='code-block-footer' style={{ height: '100px' }} >
                 <Terminal ref={terminal} url={node?.attrs?.url} />
             </div>
-        }
-
-        <Modal title={`${node?.attrs?.title ?? ''}_设置`}
-            open={isModalOpen}
-            onOk={hideModal}
-            onCancel={hideModal}>
-            <p>Some contents...</p>
-            <p>Some contents...</p>
-            <p>Some contents...</p>
-        </Modal>
+        } */}
     </NodeViewWrapper>
 }

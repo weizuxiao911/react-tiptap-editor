@@ -7,7 +7,7 @@
     border: 1px solid #e0e0e0;
     background: #fff;
     padding: 4px;
-    z-index: 99;
+    z-index: 1;
 
     button {
         width: 16px;
@@ -28,7 +28,7 @@
     border: 1px solid #e0e0e0;
     background: #fff;
     padding: 4px;
-    z-index: 99;
+    z-index: 1;
 
     button {
         width: 14px;
@@ -49,14 +49,114 @@
     box-sizing: border-box;
 
 }
+
 .code-block {
     position: relative;
 
-    select {
-        position: absolute;
-        right: 0.5rem;
-        top: 0.5rem;
+    .hljs-comment,
+    .hljs-quote {
+        color: #616161;
     }
+
+    .hljs-variable,
+    .hljs-template-variable,
+    .hljs-attribute,
+    .hljs-tag,
+    .hljs-name,
+    .hljs-regexp,
+    .hljs-link,
+    .hljs-name,
+    .hljs-selector-id,
+    .hljs-selector-class {
+        color: #f98181;
+    }
+
+    .hljs-number,
+    .hljs-meta,
+    .hljs-built_in,
+    .hljs-builtin-name,
+    .hljs-literal,
+    .hljs-type,
+    .hljs-params {
+        color: #fbbc88;
+    }
+
+    .hljs-string,
+    .hljs-symbol,
+    .hljs-bullet {
+        color: #b9f18d;
+    }
+
+    .hljs-title,
+    .hljs-section {
+        color: #faf594;
+    }
+
+    .hljs-keyword,
+    .hljs-selector-tag {
+        color: #70cff8;
+    }
+
+    .hljs-emphasis {
+        font-style: italic;
+    }
+
+    .hljs-strong {
+        font-weight: 700;
+    }
+
+    pre {
+        background: #0d0d0d;
+        color: #fff;
+        font-family: "JetBrainsMono", monospace;
+        margin: 0;
+        padding: 0;
+
+        code {
+            color: inherit;
+            background: none;
+            font-size: 0.8rem;
+
+            div {
+                padding-left: 10px;
+            }
+        }
+    }
+
+    .code-block-header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: 10px;
+        background: #0d0d0d;
+        box-shadow: 0px 1px 5px 5px #fff;
+        flex-wrap: nowrap;
+
+        .ant-space-item {
+
+            button {
+                background: #fff;
+                display: flex;
+                width: 24px;
+                height: 24px;
+                align-items: center;
+                justify-content: center;
+
+                &:hover {
+                    color: #fff;
+                }
+            }
+
+
+        }
+    }
+
+    .code-block-body, .code-block-footer {
+        box-shadow: 0px 3px 5px #fff;
+    }
+
 }
 
 .title {
@@ -64,14 +164,24 @@
     font-weight: 600;
     box-sizing: border-box;
     margin-bottom: 10px;
-}.h1 {
-    font-size: 22px;
-}.h2 {
-    font-size: 20px;
-}.h3 {
+}
+
+.h1 {
     font-size: 18px;
-}.h4 {
+}
+
+.h2 {
     font-size: 16px;
-}.h5 {
+}
+
+.h3 {
     font-size: 14px;
+}
+
+.h4 {
+    font-size: 12px;
+}
+
+.h5 {
+    font-size: 10px;
 }

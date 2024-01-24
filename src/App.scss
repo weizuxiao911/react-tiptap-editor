@@ -56,6 +56,20 @@
       outline: none;
     }
 
+    // >div:has(br:only-child) {
+    //   position: relative;
+    // }
+
+    // >div:has(br:only-child):only-child::before {
+    //   color: #a9a9a9;
+    //   content: '请输入...';
+    //   position: absolute;
+    // }
+
+    ul {
+      padding-inline-start: 20px;
+    }
+
     code {
       // background-color: rgba(#3e3c3a, 0.3);
       background: #0d0d0d;
@@ -65,88 +79,10 @@
       padding-top: 0px 2px;
     }
 
-    .hljs-comment,
-    .hljs-quote {
-      color: #616161;
-    }
 
-    .hljs-variable,
-    .hljs-template-variable,
-    .hljs-attribute,
-    .hljs-tag,
-    .hljs-name,
-    .hljs-regexp,
-    .hljs-link,
-    .hljs-name,
-    .hljs-selector-id,
-    .hljs-selector-class {
-      color: #f98181;
-    }
-
-    .hljs-number,
-    .hljs-meta,
-    .hljs-built_in,
-    .hljs-builtin-name,
-    .hljs-literal,
-    .hljs-type,
-    .hljs-params {
-      color: #fbbc88;
-    }
-
-    .hljs-string,
-    .hljs-symbol,
-    .hljs-bullet {
-      color: #b9f18d;
-    }
-
-    .hljs-title,
-    .hljs-section {
-      color: #faf594;
-    }
-
-    .hljs-keyword,
-    .hljs-selector-tag {
-      color: #70cff8;
-    }
-
-    .hljs-emphasis {
-      font-style: italic;
-    }
-
-    .hljs-strong {
-      font-weight: 700;
-    }
-
-    div {
-      font-size: 16px;
-      margin-bottom: 0.5rem;
-    }
-
-    pre {
-      background: #0d0d0d;
-      color: #fff;
-      font-family: "JetBrainsMono", monospace;
-      padding: 0.75rem 1rem;
-      border-radius: 0.5rem;
-
-      code {
-        color: inherit;
-        padding: 0;
-        background: none;
-        font-size: 0.8rem;
-      }
-    }
-
-    >div:has(br:only-child) {
-      position: relative;
-    }
-
-    >div:has(br:only-child):only-child::before {
-      color: #a9a9a9;
-      content: '请输入...';
-      position: absolute;
-      left: 0;
-    }
+    // >div, >h1, 》h2, h3, h4, h5 {
+    //   margin: 0.5rem;
+    // }
 
   }
 
@@ -155,4 +91,9 @@
 p {
   padding: 0;
   margin: 0;
+}
+
+/* 在使用React和Ant Design开发时出现ResizeObserver loop completed with undelivered notifications这个报错, https://blog.csdn.net/qq_58657388/article/details/135171245 */
+#webpack-dev-server-client-overlay {
+  display: none !important;
 }

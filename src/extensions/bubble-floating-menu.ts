@@ -41,6 +41,22 @@ const floating = (f: any, pmViewDesc: any) => {
     })
 }
 
+/** isIgnoreSelection  */
+const isIgnoreSelection = (e: any, pos: number, side?: number): boolean => {
+    const data = e?.editor?.view?.domAtPos(pos, side)
+    if (!data) return false
+    const { node } = data
+    if (!node || !node?.pmViewDesc) return false
+    let pmViewDesc: any = node?.pmViewDesc
+    while (pmViewDesc) {
+        if (e?.options?.ignoreNodeTypes?.includes(pmViewDesc?.node?.type?.name)) {
+            return true
+        }
+        pmViewDesc = pmViewDesc?.parent
+    }
+    return false
+}
+
 declare module "@tiptap/core" {
     interface Commands<ReturnType> {
         bubbleFloatingMenu: {
@@ -70,11 +86,13 @@ declare module "@tiptap/core" {
 
 export type BubbleFloatingMenuProps = {
 
+    ignoreNodeTypes: string[]
+
     /**
      * bubble menu component
      */
     bubble: (({ editor, from, to }: { editor: Editor; from: number; to: number }) => React.JSX.Element) | null
-    
+
     /**
      * floating menu component
      */
@@ -120,6 +138,9 @@ export const BubbleFloatingMenu = Extension.create<BubbleFloatingMenuProps>({
                     const selection = this.editor?.view?.state?.selection
                     if (selection) {
                         const { empty, from, to } = selection
+                        if (this.options?.ignoreNodeTypes?.length && isIgnoreSelection(this, from, (to - from) / 2)) {
+                            return
+                        }
                         if (!empty && from !== to) {
                             this.editor?.chain()?.showBubbleMenu()?.run()
                             return
@@ -144,6 +165,7 @@ export const BubbleFloatingMenu = Extension.create<BubbleFloatingMenuProps>({
     onCreate() {
         !this.options?.tippy1 && (
             this.options.tippy1 = tippy(this.editor?.view?.dom, {
+                zIndex: 1,
                 getReferenceClientRect: null,
                 appendTo: document.body,
                 hideOnClick: true,
@@ -155,6 +177,7 @@ export const BubbleFloatingMenu = Extension.create<BubbleFloatingMenuProps>({
         )
         !this.options?.tippy2 && (
             this.options.tippy2 = tippy(this.editor?.view?.dom, {
+                zIndex: 1,
                 getReferenceClientRect: null,
                 appendTo: document.body,
                 hideOnClick: true,
@@ -192,6 +215,9 @@ export const BubbleFloatingMenu = Extension.create<BubbleFloatingMenuProps>({
             if (empty || from === to) {
                 return
             }
+            if (this.options?.ignoreNodeTypes?.length && isIgnoreSelection(this, from, (to - from) / 2)) {
+                return
+            }
             bubble(this, from, to)
             this.editor?.chain()?.hideFloatingMenu()?.showBubbleMenu()?.run()
         }, this.options?.delay ?? 100)
@@ -210,6 +236,7 @@ export const BubbleFloatingMenu = Extension.create<BubbleFloatingMenuProps>({
 
     addOptions() {
         return {
+            ignoreNodeTypes: ['codeBlock'],
             bubble: null,
             floating: null,
             tippy1: null,

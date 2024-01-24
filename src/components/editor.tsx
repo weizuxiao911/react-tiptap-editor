@@ -39,6 +39,7 @@ import { Tooltip } from '../extensions/tooltip'
 import BubblMenu from './bubble-menu'
 import FloatingMenu from './floating-menu'
 import Tips from './tips'
+import { Action } from '../extensions/action'
 
 
 const Editor = () => {
@@ -88,7 +89,9 @@ const Editor = () => {
             }),
             Tooltip.configure({
                 component: Tips
-            })
+            }),
+
+            Action,
 
         ],
 
