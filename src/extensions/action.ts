@@ -14,15 +14,15 @@ export interface ActionOptions {
     nodeView?: ((props?: any) => React.JSX.Element) | null
 }
 
-export const backtickInputRegex = /^```(action|ACTION)?[\s\n]$/
-export const tildeInputRegex = /^~~~(action|ACTION)?[\s\n]$/
+export const backtickInputRegex = /^```action[\s\n]$/
+export const tildeInputRegex = /^~~~action[\s\n]$/
 
 export const Action = Node.create<ActionOptions>({
     name: 'action',
 
     group: 'block',
     content: 'text*',
-    atom: true, 
+    // atom: true, 
     defining: true,
 
     parseHTML() {
@@ -51,6 +51,14 @@ export const Action = Node.create<ActionOptions>({
     addOptions() {
         return {
             nodeView: null
+        }
+    },
+
+    addAttributes() {
+        return {
+            title: {
+                default: '',
+            },
         }
     },
 

@@ -1,13 +1,27 @@
 import { NodeViewContent, NodeViewWrapper } from "@tiptap/react"
-import { Button, Checkbox, Form, Input } from "antd"
+import { Button, Checkbox, Form, Input, Space } from "antd"
+import { useEffect } from "react"
 
 
 export const ActionView = (props: any) => {
 
-    const { updateAttributes } = props
+
+    const { node, updateAttributes } = props
+
+    useEffect(() => {
+        console.log(node)
+    }, [node])
 
     return <NodeViewWrapper>
-        <Form
+        <Button contentEditable={false} onClick={() => {
+            updateAttributes({
+                baba: 'xxx',
+                abcd: 'abcd'
+            })
+        }}>
+            添加属性
+        </Button>
+        <Form contentEditable={false}
             name="basic"
             labelCol={{ span: 8 }}
             wrapperCol={{ span: 16 }}
@@ -30,24 +44,19 @@ export const ActionView = (props: any) => {
                 <Input />
             </Form.Item>
 
-            <Form.Item
-                name="remember"
-                valuePropName="checked"
-                wrapperCol={{ offset: 8, span: 16 }}>
-                <Checkbox>Remember me</Checkbox>
-            </Form.Item>
-
             <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                <Button type="primary" htmlType="submit">
-                    Submit
-                </Button>
-                <Button type="primary" onClick={() => {
-                    updateAttributes('bababa', 'bababa')
-                }}>
-                    添加属性
-                </Button>
+                <Space>
+                    <Button type="primary" htmlType="submit">
+                        Submit
+                    </Button>
+                </Space>
             </Form.Item>
         </Form>
+
+        <div>
+            <NodeViewContent />
+        </div>
+        
         
     </NodeViewWrapper>
 }

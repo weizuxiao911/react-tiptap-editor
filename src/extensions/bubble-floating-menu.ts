@@ -46,10 +46,20 @@ const isIgnoreSelection = (e: any, pos: number, side?: number): boolean => {
     const data = e?.editor?.view?.domAtPos(pos, side)
     if (!data) return false
     const { node } = data
-    if (!node || !node?.pmViewDesc) return false
-    let pmViewDesc: any = node?.pmViewDesc
+    let current = node
+    if (!current) {
+        return true
+    }
+    while (!current?.pmViewDesc && current?.parentElement) { // find pmViewDesc
+        current = current?.parentElement
+        if (current?.pmViewDesc) break
+    }
+    if (!current || !current?.pmViewDesc) {
+        return true
+    }
+    let pmViewDesc: any = current?.pmViewDesc
     while (pmViewDesc) {
-        if (e?.options?.ignoreNodeTypes?.includes(pmViewDesc?.node?.type?.name)) {
+        if (e?.options?.ignoreBubbleNodeTypes?.includes(pmViewDesc?.node?.type?.name)) {
             return true
         }
         pmViewDesc = pmViewDesc?.parent
@@ -86,7 +96,9 @@ declare module "@tiptap/core" {
 
 export type BubbleFloatingMenuProps = {
 
-    ignoreNodeTypes: string[]
+    ignoreBubbleNodeTypes: string[]
+
+    ignoreFloatingNodeTypes: string[]
 
     /**
      * bubble menu component
@@ -138,7 +150,7 @@ export const BubbleFloatingMenu = Extension.create<BubbleFloatingMenuProps>({
                     const selection = this.editor?.view?.state?.selection
                     if (selection) {
                         const { empty, from, to } = selection
-                        if (this.options?.ignoreNodeTypes?.length && isIgnoreSelection(this, from, (to - from) / 2)) {
+                        if (from === 0 || this.options?.ignoreBubbleNodeTypes?.length && isIgnoreSelection(this, from, (to - from) / 2)) {
                             return
                         }
                         if (!empty && from !== to) {
@@ -149,6 +161,9 @@ export const BubbleFloatingMenu = Extension.create<BubbleFloatingMenuProps>({
                     // find NodeViewDesc, not TextViewDesc / MaskViewDesc
                     while (pmViewDesc && (!pmViewDesc?.node || 'text' === pmViewDesc?.node?.type?.name)) {
                         pmViewDesc = pmViewDesc?.parent
+                    }
+                    if (this.options?.ignoreFloatingNodeTypes.filter(it => it === pmViewDesc?.node?.type?.name)?.length) {
+                        return 
                     }
                     floating(this, pmViewDesc)
                     this.editor?.chain().showFloatingMenu()
@@ -165,7 +180,7 @@ export const BubbleFloatingMenu = Extension.create<BubbleFloatingMenuProps>({
     onCreate() {
         !this.options?.tippy1 && (
             this.options.tippy1 = tippy(this.editor?.view?.dom, {
-                zIndex: 1,
+                zIndex: 0,
                 getReferenceClientRect: null,
                 appendTo: document.body,
                 hideOnClick: true,
@@ -212,12 +227,13 @@ export const BubbleFloatingMenu = Extension.create<BubbleFloatingMenuProps>({
             if (!this.editor?.isFocused || !this.editor?.isEditable || !this.options?.bubble) return
             const selection = this.editor?.view?.state?.selection
             const { empty, from, to } = selection
-            if (empty || from === to) {
+            if (empty || from === to || 0 === from) {
                 return
             }
-            if (this.options?.ignoreNodeTypes?.length && isIgnoreSelection(this, from, (to - from) / 2)) {
+            if (this.options?.ignoreBubbleNodeTypes?.length && isIgnoreSelection(this, from, (to - from) / 2)) {
                 return
             }
+            console.log(empty, from ,to)
             bubble(this, from, to)
             this.editor?.chain()?.hideFloatingMenu()?.showBubbleMenu()?.run()
         }, this.options?.delay ?? 100)
@@ -236,7 +252,8 @@ export const BubbleFloatingMenu = Extension.create<BubbleFloatingMenuProps>({
 
     addOptions() {
         return {
-            ignoreNodeTypes: ['codeBlock'],
+            ignoreBubbleNodeTypes: ['codeBlock'],
+            ignoreFloatingNodeTypes: ['title'],
             bubble: null,
             floating: null,
             tippy1: null,

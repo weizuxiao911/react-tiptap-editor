@@ -26,13 +26,18 @@ const App = () => {
     <Layout hasSider>
       <Sider className='sider'
         style={{ background: colorBgContainer }}
-        collapsedWidth={0}
+        // collapsedWidth={0}
         trigger={null}
         collapsible
         collapsed={collapsed}>
-        <div className='tom'>
+
+          {/** 左侧菜单栏 */}
+
+
+
+        {/* <div className='tom'>
           <Tom editor={editor} />
-        </div>
+        </div> */}
       </Sider>
       <Layout>
         <Header className='header'

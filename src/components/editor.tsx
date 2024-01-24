@@ -28,6 +28,7 @@ import { Subscript } from '@tiptap/extension-subscript'
 import { Superscript } from '@tiptap/extension-superscript'
 import TextAlign from '@tiptap/extension-text-align'
 import Highlight from '@tiptap/extension-highlight'
+import Placeholder from '@tiptap/extension-placeholder'
 
 import History from '@tiptap/extension-history'
 import Gapcursor from '@tiptap/extension-gapcursor'
@@ -40,6 +41,7 @@ import BubblMenu from './bubble-menu'
 import FloatingMenu from './floating-menu'
 import Tips from './tips'
 import { Action } from '../extensions/action'
+import { Title } from '../extensions/title'
 
 
 const Editor = () => {
@@ -54,6 +56,7 @@ const Editor = () => {
             Paragraph,
             Text,
             Heading,
+            Title,
             Blockquote,
             BulletList,
             OrderedList,
@@ -82,10 +85,19 @@ const Editor = () => {
                 types: ['heading', 'paragraph', 'image'],
             }),
             Highlight,
+            // Placeholder.configure({
+            //     placeholder: ({ node }) => {
+            //         if (node.type.name === 'title') {
+            //             return 'What’s the title?'
+            //         }
+
+            //         return 'Can you add some further context?'
+            //     },
+            // }),
             Selection,
             BubbleFloatingMenu.configure({
                 bubble: BubblMenu,
-                floating: FloatingMenu
+                floating: FloatingMenu,
             }),
             Tooltip.configure({
                 component: Tips
